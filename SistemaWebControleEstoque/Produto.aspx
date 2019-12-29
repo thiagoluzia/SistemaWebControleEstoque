@@ -13,7 +13,7 @@
             <asp:Label ID="Label1" runat="server" Text="Cadastro de Produtos" Font-Size="Larger"></asp:Label>
             <br />
             <br />
-            <asp:Button ID="btnGravar" runat="server" Text="Gravar" />
+            <asp:Button ID="btnGravar" runat="server" OnClick="btnGravar_Click" Text="Gravar" />
             <br />
             <br />
         </div>
@@ -57,8 +57,7 @@
         <asp:Label ID="Label8" runat="server" Text="Unidade de Medida:"></asp:Label>
 &nbsp;&nbsp;&nbsp;
         <br />
-        <asp:TextBox ID="txtUnidadeMedida" runat="server" OnTextChanged="txtUnidadeMedida_TextChanged" Width="53px"></asp:TextBox>
-&nbsp;&nbsp;&nbsp;
+        <asp:TextBox ID="txtUnidade_Medida" runat="server" Width="54px"></asp:TextBox>
         <br />
         <br />
         <asp:Label ID="Label9" runat="server" Text="Categoria: "></asp:Label>

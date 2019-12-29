@@ -16,6 +16,14 @@ using System.Web.UI.WebControls;
 /// 3.4 Chamar o campo criado no dropdowlist, chamar um metodo data bind que vai consolidar  feito,
 /// 3.5 DataSource pego o caminho, Produto.DataValueField pego o id da categoria no banco, DataTextField pego o texto de acordo com o id, DataBind consolidação do feito
 /// 4 Chamar a função criada para carregar o dropdowlist dentro do Page Load, assim a cada load ele carrega
+/// 
+/// INSERIR PRODUTO
+/// 1º Atraves do objProduto criado teremos acesso a suas propriedades, nas quais iremos preencher e depois enviar para BLL que por sua vez enviar para DAL
+/// 1.1 Obj.Propriedade = campo.text,  ou seja a propriedade ira receber tudo que for digitado nos campos textBox criado na visão
+/// 1.2 Como todos os campos da visão são do tipo texto e as propriedades são de tipos diferente, alguns campos terão que passar pelo processo Parse, ou seja o tipo da propriedade .Parse(e o campo do tipo text)
+/// 1.3 Na categoria temos um detalhe a mais, alem do parse temos que passar o id da categoria selecionada da seguinte maneira, o nome do campo.SelectedValue.ToString(), ou seja o valor daquele campo que vem como id, porem mostramos o nome,
+/// 2º Chamamos o metodo inserir produto que nao recebe nenhum parametro, mas ue ja leva consigo todas as propriedades preenchidas para inserir no banco, pois o mesmo envia o comando sql para a camada DAL  na qual tem um metodo para trabalhar com comandos sql
+/// 
 /// </summary>
 
 public partial class Produto : System.Web.UI.Page
@@ -28,16 +36,21 @@ public partial class Produto : System.Web.UI.Page
 
     private void CarregarCategorias()
     {
-        //sempre é executado a cada carregamento
-        ddlCategoriaProduto.DataSource = objProduto.RetornarCategoriaProduto();//a fonte de dados do drop dal list é o data table que e retornado pelo metodo do produto bll, atraves do obj criado a partir do produto bll
+        ddlCategoriaProduto.DataSource = objProduto.RetornarCategoriaProduto();
         ddlCategoriaProduto.DataValueField = "id";
         ddlCategoriaProduto.DataTextField = "nome";
         ddlCategoriaProduto.DataBind();
     }
 
-    protected void txtUnidadeMedida_TextChanged(object sender, EventArgs e)
+    protected void btnGravar_Click(object sender, EventArgs e)
     {
-
+        objProduto.Nome = txtNome.Text;
+        objProduto.Desscricao = txtDescricao.Text;
+        objProduto.Preco_Custo = decimal.Parse(txtPrecoCusto.Text);
+        objProduto.Preco_Venda = decimal.Parse(txtPrecoVenda.Text);
+        objProduto.Quantidade = int.Parse(txtQuantidade.Text);
+        objProduto.Unidade_Medida = txtUnidade_Medida.Text;
+        objProduto.Categoria_ID = int.Parse(ddlCategoriaProduto.SelectedValue.ToString());
+        objProduto.InserirProduto();
     }
-
 }
