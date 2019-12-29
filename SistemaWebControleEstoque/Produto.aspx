@@ -64,7 +64,7 @@
         <asp:Label ID="Label9" runat="server" Text="Categoria: "></asp:Label>
 &nbsp;&nbsp;&nbsp;
         <br />
-        <asp:DropDownList ID="dplCategoriaProduto" runat="server">
+        <asp:DropDownList ID="ddlCategoriaProduto" runat="server">
         </asp:DropDownList>
         <br />
         <br />

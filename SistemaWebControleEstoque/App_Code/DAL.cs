@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-
+﻿using MySql.Data.MySqlClient;
 using System.Data;
-using MySql.Data.MySqlClient;
 
 /// <summary>
 /// Cria as variaveis dos dados necessarios para string de conexao privadas fora do construtor.
@@ -36,7 +30,7 @@ public class DAL
     private string connectionString = "Server={0};Database={1};Uid={2};Pwd={3}";
     private MySqlConnection connection;
 
-    //Cria conexão
+    //Cria conexão - Dentro do construtor assim ao instanciar um objeto terei uma conexão estabelecida
     public DAL()
     {
         connectionString = string.Format(connectionString, server, database, user, password);
