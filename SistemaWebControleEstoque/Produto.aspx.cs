@@ -24,6 +24,12 @@ using System.Web.UI.WebControls;
 /// 1.3 Na categoria temos um detalhe a mais, alem do parse temos que passar o id da categoria selecionada da seguinte maneira, o nome do campo.SelectedValue.ToString(), ou seja o valor daquele campo que vem como id, porem mostramos o nome,
 /// 2º Chamamos o metodo inserir produto que nao recebe nenhum parametro, mas ue ja leva consigo todas as propriedades preenchidas para inserir no banco, pois o mesmo envia o comando sql para a camada DAL  na qual tem um metodo para trabalhar com comandos sql
 /// 
+/// RETORNO PRODUTO BLL
+/// 1º Semelhande ao carregar categoria.
+/// 2º Criar uma função Carregar Data Grid
+/// 2.1 O DataGrideProdutos atraves do data source, recebe o caminho para a base de dados que é o objeto produto que utiliza o metodo que retorna uma lista de produtos 
+/// 2.2 E efetua a consolidação atraves do Bind
+/// 3º Chamar a função dentro do page load, para sempre que a pagina for carregada, ele recarrega os dados
 /// </summary>
 
 public partial class Produto : System.Web.UI.Page
@@ -32,6 +38,7 @@ public partial class Produto : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         CarregarCategorias();
+        CarregarGridView();
     }
 
     private void CarregarCategorias()
@@ -40,6 +47,12 @@ public partial class Produto : System.Web.UI.Page
         ddlCategoriaProduto.DataValueField = "id";
         ddlCategoriaProduto.DataTextField = "nome";
         ddlCategoriaProduto.DataBind();
+    }
+
+    private void CarregarGridView()
+    {
+        gridProdutos.DataSource = objProduto.RetListarProdutos();
+        gridProdutos.DataBind();
     }
 
     protected void btnGravar_Click(object sender, EventArgs e)
