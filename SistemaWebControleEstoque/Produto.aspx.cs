@@ -13,4 +13,9 @@ public partial class Produto : System.Web.UI.Page
         DAL objDAL = new DAL();
         objDAL.ExecutarComandoSQL("insert into categoria(nome) values('Bebidas')");
     }
+
+    protected void txtUnidadeMedida_TextChanged(object sender, EventArgs e)
+    {
+
+    }
 }
