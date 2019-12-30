@@ -13,7 +13,13 @@
             <asp:Label ID="Label1" runat="server" Text="Cadastro de Produtos" Font-Size="Larger"></asp:Label>
             <br />
             <br />
+            <asp:Button ID="btnLimpar" runat="server" Text="Limpar" OnClick="btnLimpar_Click" />
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Button ID="btnGravar" runat="server" OnClick="btnGravar_Click" Text="Gravar" />
+            &nbsp;&nbsp;&nbsp;
+            <asp:Button ID="btnCarregar" runat="server" OnClick="btnCarregar_Click" Text="Carregar" />
+&nbsp;&nbsp;&nbsp;&nbsp;
+            <asp:Button ID="btnExluir" runat="server" OnClick="btnExluir_Click" Text="Excluir" />
             <br />
             <br />
         </div>
@@ -32,7 +38,7 @@
         <asp:Label ID="Label4" runat="server" Text="Descrição:"></asp:Label>
 &nbsp;&nbsp;
         <br />
-        <asp:TextBox ID="txtDescricao" runat="server" Height="128px" TextMode="MultiLine" Width="457px"></asp:TextBox>
+        <asp:TextBox ID="txtDescricao" runat="server" Height="58px" TextMode="MultiLine" Width="457px"></asp:TextBox>
         <br />
         <br />
         <asp:Label ID="Label5" runat="server" Text="Preço de Custo:"></asp:Label>

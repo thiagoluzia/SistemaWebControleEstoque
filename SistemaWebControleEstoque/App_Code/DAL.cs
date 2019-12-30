@@ -23,12 +23,14 @@ using System.Data;
 /// </summary>
 public class DAL
 {
+    #region(Data connction)
     private string server = "localhost";
     private string database = "estoque";
     private string user = "root";
     private string password = "";
     private string connectionString = "Server={0};Database={1};Uid={2};Pwd={3}";
     private MySqlConnection connection;
+    #endregion
 
     //Cria conexão - Dentro do construtor assim ao instanciar um objeto terei uma conexão estabelecida
     public DAL()
@@ -38,7 +40,6 @@ public class DAL
         connection.Open();
     }
 
-    //Retorna dados
     public DataTable RetDataTable(string sql)
     {
         DataTable dataTable = new DataTable();
@@ -48,13 +49,10 @@ public class DAL
         return dataTable;
     }
 
-    //Executa comandos
     public void ExecutarComandoSQL(string sql)
     {
         MySqlCommand command = new MySqlCommand(sql, connection);
         command.ExecuteNonQuery();
     }
-
-
 
 }
