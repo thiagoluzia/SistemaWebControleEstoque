@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using MySql.Data.MySqlClient;
 
 
 /// <summary>
@@ -42,7 +43,7 @@ public class ProdutoBLL
     #region(Propriedades)
     public int Id { get; set; }
     public string Nome { get; set; }
-    public string Desscricao { get; set; }
+    public string Descricao { get; set; }
     public decimal Preco_Custo { get; set; }
     public decimal Preco_Venda { get; set; }
     public double Quantidade { get; set; }
@@ -51,52 +52,72 @@ public class ProdutoBLL
     //Deveria ter ficado isolada
     #endregion
 
-    DAL objDAL = new DAL(); 
- 
-    //apaguei construtor
+    DAL objDAL = new DAL();
 
-    public DataTable RetornarCategoriaProduto()
-    {
-        return objDAL.RetDataTable("select * from categoria");
-    }
-
+    #region Metodos CRUD
     public DataTable RetListarProdutos()
     {
-        return objDAL.RetDataTable("select * from Produto");
+        MySqlCommand cmd = new MySqlCommand();
+        cmd.CommandText = "select * from Produto";
+        return objDAL.RetDataTable(cmd);
     }
 
     public DataTable CarregarProdutoPorId(string id)
     {
-        //string sql = "select * from produto where id = {0}";
-        //sql = string.Format(sql, id);
-        //return objDAL.RetDataTable(sql);
+        MySqlCommand cmd = new MySqlCommand();
 
-        return objDAL.RetDataTable("select* from produto where id =" + id);
-
+        cmd.CommandText = "select* from produto where id = @id";
+        cmd.Parameters.AddWithValue("@id", id);
+        
+        return objDAL.RetDataTable(cmd);
     }
 
     public void InserirProduto()
     {
-        string sql = "Insert produto(nome, descricao, preco_custo, preco_venda, quantidade, unidade_medida, categoria_id)" +
-                      "values('{0}','{1}','{2}','{3}','{4}','{5}','{6}')";
+        MySqlCommand cmd = new MySqlCommand();
+        cmd.CommandText = "insert into produto(nome, descricao, preco_custo, preco_venda, quantidade, unidade_medida, categoria_id)" +
+                      "values(@nome,@descricao,@preco_custo,@preco_venda,@quantidade,@unidade_medida,@categoria_id)";
 
-        sql = string.Format(sql, Nome, Desscricao, Preco_Custo, Preco_Venda, Quantidade, Unidade_Medida, Categoria_ID);
-        objDAL.ExecutarComandoSQL(sql);
+        cmd.Parameters.AddWithValue("@nome", Nome);
+        cmd.Parameters.AddWithValue("@descricao", Descricao);
+        cmd.Parameters.AddWithValue("@preco_venda", Preco_Venda);
+        cmd.Parameters.AddWithValue("@preco_custo", Preco_Custo);
+        cmd.Parameters.AddWithValue("@unidade_medida", Unidade_Medida);
+        cmd.Parameters.AddWithValue("@quantidade", Quantidade);
+        cmd.Parameters.AddWithValue("@categoria_id", Categoria_ID);
 
+        objDAL.ExecutarComandoSQL(cmd);
     }
 
     public void AlterarProduto(string id)
     {
-        string sql = "update produto set nome = '{0}', descricao = '{1}', preco_custo = '{2}', preco_venda = '{3}', quantidade = '{4}', unidade_medida = '{5}',  categoria_id = '{6}' where id = '{7}'";
-        sql = string.Format(sql, Nome, Desscricao, Preco_Custo, Preco_Venda, Quantidade, Unidade_Medida, Categoria_ID, Id);
-        objDAL.ExecutarComandoSQL(sql);
+        MySqlCommand cmd = new MySqlCommand();
+
+        cmd.CommandText = "update produto set nome = @nome, descricao = @descricao, " +
+            "preco_custo = @preco_custo, preco_venda = @preco_venda, quantidade = @quantidade, " +
+            "unidade_medida = @unidade_medida,  categoria_id = @categoria_id where id = @id";
+
+        cmd.Parameters.AddWithValue("@nome", Nome);
+        cmd.Parameters.AddWithValue("@descricao", Descricao);
+        cmd.Parameters.AddWithValue("@preco_custo", Preco_Custo);
+        cmd.Parameters.AddWithValue("@preco_venda", Preco_Venda);
+        cmd.Parameters.AddWithValue("@quantidade", Quantidade);
+        cmd.Parameters.AddWithValue("@unidade_medida", Unidade_Medida);
+        cmd.Parameters.AddWithValue("@categoria_id", Categoria_ID);
+        cmd.Parameters.AddWithValue("@id", Id);
+
+        objDAL.ExecutarComandoSQL(cmd);
     }
 
     public void ExcluirProduto(string id)
     {
-        string sql = "delete from produto where id = {0}";
-        sql = string.Format(sql, id);
-        objDAL.ExecutarComandoSQL(sql);
+        MySqlCommand cmd = new MySqlCommand();
+
+        cmd.CommandText = "delete from produto where id = @id";
+        cmd.Parameters.AddWithValue("@id", id);
+
+        objDAL.ExecutarComandoSQL(cmd);
     }
+    #endregion
 
 }

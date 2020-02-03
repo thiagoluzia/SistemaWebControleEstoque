@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Produto.aspx.cs" Inherits="Produto" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Categoria.aspx.cs" Inherits="Categoria" %>
 
 <!DOCTYPE html>
 
@@ -6,12 +6,27 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-    <link rel="stylesheet" href="StyleSheet.css" />
+    <style type="text/css">
+
+.label_tela {
+    font-family: Algerian;
+    font-size: larger;
+    font-weight: 500;
+}
+.botao{
+    font-family:Constantia;
+    font-size:small;
+    font-weight:500;
+    background-color:#0094ff;
+    color:white;
+}
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Label ID="Label1" runat="server" Text="Cadastro de Produtos" Font-Size="Larger" CssClass="label_tela"></asp:Label>
+        <div style="margin-left: 40px">
+            <asp:Label ID="Label1" runat="server" Text="Cadastro de Categorias" Font-Size="Larger" CssClass="label_tela"></asp:Label>
             <br />
             <br />
             <asp:Button ID="btnLimpar" runat="server" Text="Limpar" OnClick="btnLimpar_Click" CssClass="botao" Height="37px" Width="80px" />
@@ -29,31 +44,9 @@
         <br />
         <asp:Label ID="Label3" runat="server" Text="Nome:" Width="120px"></asp:Label>
         <asp:TextBox ID="txtNome" runat="server" Width="457px"></asp:TextBox>
-        <br />
-        <asp:Label ID="Label4" runat="server" Text="Descrição:" Width="120px"></asp:Label>
-        <asp:TextBox ID="txtDescricao" runat="server" Height="58px" TextMode="MultiLine" Width="457px"></asp:TextBox>
-        <br />
-        <br />
-        <asp:Label ID="Label5" runat="server" Text="Preço de Custo:" Width="120px"></asp:Label>
-        <asp:TextBox ID="txtPrecoCusto" runat="server" Width="115px"></asp:TextBox>
-&nbsp;&nbsp;
-        <br />
-        <asp:Label ID="Label6" runat="server" Text="Preço de Venda:" Width="120px"></asp:Label>
-        <asp:TextBox ID="txtPrecoVenda" runat="server" Height="16px" Width="115px"></asp:TextBox>
-        <br />
-        <asp:Label ID="Label7" runat="server" Text="Quantidade:" Width="120px"></asp:Label>
-        <asp:TextBox ID="txtQuantidade" runat="server" Width="57px"></asp:TextBox>
-&nbsp;&nbsp;&nbsp;
-        <br />
-        <asp:Label ID="Label8" runat="server" Text="Unidade de Medida:" Width="120px"></asp:Label>
-        <asp:TextBox ID="txtUnidade_Medida" runat="server" Width="57px"></asp:TextBox>
-        <br />
-        <asp:Label ID="Label9" runat="server" Text="Categoria: " Width="120px"></asp:Label>
-        <asp:DropDownList ID="ddlCategoriaProduto" runat="server">
-        </asp:DropDownList>
-        <br />
-        <br />
-        <asp:GridView ID="gridProdutos" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" Width="743px" OnSelectedIndexChanged="gridProdutos_SelectedIndexChanged">
+            <br />
+            <br />
+        <asp:GridView ID="gridCategorias" runat="server" BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" CellPadding="3" ForeColor="Black" GridLines="Vertical" Width="743px" OnSelectedIndexChanged="gridCategorias_SelectedIndexChanged">
             <AlternatingRowStyle BackColor="#CCCCCC" />
             <Columns>
                 <asp:CommandField ShowSelectButton="True" />
@@ -67,7 +60,8 @@
             <SortedDescendingCellStyle BackColor="#CAC9C9" />
             <SortedDescendingHeaderStyle BackColor="#383838" />
         </asp:GridView>
-        <br />
+            <br />
+        </div>
     </form>
 </body>
 </html>

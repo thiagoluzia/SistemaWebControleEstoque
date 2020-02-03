@@ -55,6 +55,7 @@ using System.Data;
 public partial class Produto : System.Web.UI.Page
 {
     ProdutoBLL objProduto = new ProdutoBLL();
+    CategoriaBLL objCategoria = new CategoriaBLL();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -62,24 +63,30 @@ public partial class Produto : System.Web.UI.Page
         CarregarGridView();
     }
 
-    private void CarregarCategorias()
+
+    #region Botões
+
+    protected void btnLimpar_Click(object sender, EventArgs e)
     {
-        ddlCategoriaProduto.DataSource = objProduto.RetornarCategoriaProduto();
-        ddlCategoriaProduto.DataValueField = "id";
-        ddlCategoriaProduto.DataTextField = "nome";
-        ddlCategoriaProduto.DataBind();
+        LimparTela();
     }
 
-    private void CarregarGridView()
+    protected void btnExluir_Click(object sender, EventArgs e)
     {
-        gridProdutos.DataSource = objProduto.RetListarProdutos();
-        gridProdutos.DataBind();
+        objProduto.ExcluirProduto(txtID.Text);
+        LimparTela();
+        CarregarGridView();
+    }
+
+    protected void btnCarregar_Click(object sender, EventArgs e)
+    {
+        CarregarProduto();
     }
 
     protected void btnGravar_Click(object sender, EventArgs e)
     {
         objProduto.Nome = txtNome.Text;
-        objProduto.Desscricao = txtDescricao.Text;
+        objProduto.Descricao = txtDescricao.Text;
         objProduto.Preco_Custo = decimal.Parse(txtPrecoCusto.Text);
         objProduto.Preco_Venda = decimal.Parse(txtPrecoVenda.Text);
         objProduto.Quantidade = int.Parse(txtQuantidade.Text);
@@ -100,24 +107,9 @@ public partial class Produto : System.Web.UI.Page
 
     }
 
-    protected void btnCarregar_Click(object sender, EventArgs e)
-    {
-        DataTable data = objProduto.CarregarProdutoPorId(txtID.Text);
-        txtNome.Text = data.Rows[0]["nome"].ToString();
-        txtDescricao.Text = data.Rows[0]["descricao"].ToString();
-        txtPrecoCusto.Text = data.Rows[0]["preco_custo"].ToString();
-        txtPrecoVenda.Text = data.Rows[0]["preco_venda"].ToString();
-        txtQuantidade.Text = data.Rows[0]["quantidade"].ToString();
-        txtUnidade_Medida.Text = data.Rows[0]["unidade_medida"].ToString();
-        ddlCategoriaProduto.Text = data.Rows[0]["categoria_id"].ToString();
-    }
+    #endregion
 
-    protected void btnExluir_Click(object sender, EventArgs e)
-    {
-        objProduto.ExcluirProduto(txtID.Text);
-        LimparTela();
-        CarregarGridView();
-    }
+    #region Metodos
 
     private void LimparTela()
     {
@@ -130,8 +122,36 @@ public partial class Produto : System.Web.UI.Page
         txtUnidade_Medida.Text = string.Empty;
     }
 
-    protected void btnLimpar_Click(object sender, EventArgs e)
+    private void CarregarProduto()
     {
-        LimparTela();
+        DataTable data = objProduto.CarregarProdutoPorId(txtID.Text);
+        txtNome.Text = data.Rows[0]["nome"].ToString();
+        txtDescricao.Text = data.Rows[0]["descricao"].ToString();
+        txtPrecoCusto.Text = data.Rows[0]["preco_custo"].ToString();
+        txtPrecoVenda.Text = data.Rows[0]["preco_venda"].ToString();
+        txtQuantidade.Text = data.Rows[0]["quantidade"].ToString();
+        txtUnidade_Medida.Text = data.Rows[0]["unidade_medida"].ToString();
+        ddlCategoriaProduto.Text = data.Rows[0]["categoria_id"].ToString();
     }
+
+    private void CarregarCategorias()
+    {
+        ddlCategoriaProduto.DataValueField = "id";
+        ddlCategoriaProduto.DataTextField = "nome";
+        ddlCategoriaProduto.DataBind();
+    }
+
+    private void CarregarGridView()
+    {
+        gridProdutos.DataSource = objProduto.RetListarProdutos();
+        gridProdutos.DataBind();
+    }
+
+    protected void gridProdutos_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        txtID.Text = gridProdutos.SelectedRow.Cells[1].Text;
+        CarregarProduto();
+    }
+
+    #endregion
 }

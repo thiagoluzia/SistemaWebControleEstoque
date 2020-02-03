@@ -40,6 +40,21 @@ public class DAL
         connection.Open();
     }
 
+    public void ExecutarComandoSQL(MySqlCommand command)
+    {
+        command.Connection = connection;
+        command.ExecuteNonQuery();
+    }
+
+    public DataTable RetDataTable(MySqlCommand command)
+    {
+        DataTable dataTable = new DataTable();
+        command.Connection = connection;
+        MySqlDataAdapter da = new MySqlDataAdapter(command);
+        da.Fill(dataTable);
+        return dataTable;
+    }
+
     public DataTable RetDataTable(string sql)
     {
         DataTable dataTable = new DataTable();
